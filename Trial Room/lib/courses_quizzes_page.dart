@@ -671,7 +671,7 @@ class _CoursesQuizzesPageState extends State<CoursesQuizzesPage> {
                     },
                   ),
                 ),
-              )).toList(),
+              )),
               const SizedBox(height: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
