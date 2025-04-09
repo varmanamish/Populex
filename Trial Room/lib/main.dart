@@ -15,11 +15,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Trial Room',
       theme: ThemeData(
-        primaryColor: const Color(0xFF0F1C2E),
-        scaffoldBackgroundColor: const Color(0xFF0F1C2E),
+        primaryColor: const Color(0xFF174AC9),
+        scaffoldBackgroundColor: Colors.white,
         textTheme: const TextTheme(
-          headlineSmall: TextStyle(color: Color(0xFFFFC107)),
-          bodyMedium: TextStyle(color: Color(0xFFF5F6F5)),
+          headlineSmall: TextStyle(color: Color(0xFF174AC9)),
+          bodyMedium: TextStyle(color: Colors.black87),
         ),
       ),
       debugShowCheckedModeBanner: false,
@@ -32,55 +32,73 @@ class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
   @override
-  _HomePageState createState() => _HomePageState();
+  State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
 
-  final List<Widget> _pages = [
+  final List<Widget> _pages = const [
     HomePageContent(),
     TrialRoomPage(),
     QuizPage(),
     ProfilePage(),
   ];
 
-  final List<BottomNavigationBarItem> _navItems = [
-    const BottomNavigationBarItem(
-      icon: Icon(Icons.home, size: 24, color: Color(0xFFF5F6F5)),
-      label: 'Home',
-    ),
-    const BottomNavigationBarItem(
-      icon: Icon(Icons.gavel, size: 24, color: Color(0xFFF5F6F5)),
-      label: 'Trial Room',
-    ),
-    const BottomNavigationBarItem(
-      icon: Icon(Icons.school, size: 24, color: Color(0xFFF5F6F5)),
-      label: 'Quiz',
-    ),
-    const BottomNavigationBarItem(
-      icon: Icon(Icons.person, size: 24, color: Color(0xFFF5F6F5)),
-      label: 'Profile',
-    ),
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color(0xFF0F1C2E),
+        backgroundColor: Colors.white,
         centerTitle: true,
         elevation: 0,
+        title: Text(
+          _selectedIndex == 0
+              ? 'Home'
+              : _selectedIndex == 1
+                  ? 'Trial Room'
+                  : _selectedIndex == 2
+                      ? 'Quiz'
+                      : 'Profile',
+          style: const TextStyle(color: Color(0xFF174AC9)),
+        ),
+        iconTheme: const IconThemeData(color: Color(0xFF174AC9)),
       ),
       body: _pages[_selectedIndex],
-      bottomNavigationBar: SizedBox(
-        height: 60.0,
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.3),
+              spreadRadius: 1,
+              blurRadius: 5,
+              offset: const Offset(0, -1),
+            ),
+          ],
+        ),
         child: BottomNavigationBar(
-          items: _navItems,
+          items: const [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home, size: 24),
+              label: 'Home',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.gavel, size: 24),
+              label: 'Trial Room',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.school, size: 24),
+              label: 'Quiz',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.person, size: 24),
+              label: 'Profile',
+            ),
+          ],
           currentIndex: _selectedIndex,
-          selectedItemColor: const Color(0xFF00A86B),
-          unselectedItemColor: const Color(0xFFF5F6F5),
-          backgroundColor: const Color(0xFF0F1C2E),
+          selectedItemColor: const Color(0xFF174AC9),
+          unselectedItemColor: Colors.grey,
+          backgroundColor: Colors.white,
           type: BottomNavigationBarType.fixed,
           selectedLabelStyle: const TextStyle(fontSize: 12),
           unselectedLabelStyle: const TextStyle(fontSize: 12),
@@ -105,19 +123,43 @@ class HomePageContent extends StatelessWidget {
         Expanded(
           flex: 6,
           child: Container(
-            color: const Color(0xFF1E2A44),
+            color: const Color(0xFF174AC9),
             child: PageView(
               children: [
-                Container(color: Colors.grey, child: const Center(child: Text('Carousel Item 1'))),
-                Container(color: Colors.grey, child: const Center(child: Text('Carousel Item 2'))),
-                Container(color: Colors.grey, child: const Center(child: Text('Carousel Item 3'))),
+                Container(
+                  color: const Color(0xFF174AC9),
+                  child: const Center(
+                    child: Text(
+                      'Carousel Item 1',
+                      style: TextStyle(color: Colors.white, fontSize: 24),
+                    ),
+                  ),
+                ),
+                Container(
+                  color: const Color(0xFF174AC9),
+                  child: const Center(
+                    child: Text(
+                      'Carousel Item 2',
+                      style: TextStyle(color: Colors.white, fontSize: 24),
+                    ),
+                  ),
+                ),
+                Container(
+                  color: const Color(0xFF174AC9),
+                  child: const Center(
+                    child: Text(
+                      'Carousel Item 3',
+                      style: TextStyle(color: Colors.white, fontSize: 24),
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
         ),
         Expanded(
           flex: 4,
-          child: ServicesCard(),
+          child: const ServicesCard(),
         ),
       ],
     );
@@ -130,8 +172,9 @@ class ServicesCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: const Color(0xFF4A6B6F),
+      color: Colors.white,
       margin: const EdgeInsets.all(16.0),
+      elevation: 3,
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -164,13 +207,13 @@ class ServicesCard extends StatelessWidget {
       children: [
         CircleAvatar(
           radius: 30,
-          backgroundColor: const Color(0xFF00A86B),
-          child: Icon(icon, size: 30, color: const Color(0xFFF5F6F5)),
+          backgroundColor: const Color(0xFFACD4FC),
+          child: Icon(icon, size: 30, color: const Color(0xFF174AC9)),
         ),
         const SizedBox(height: 8.0),
         Text(
           label,
-          style: const TextStyle(color: Color(0xFFF5F6F5), fontSize: 12),
+          style: const TextStyle(color: Colors.black87, fontSize: 12),
         ),
       ],
     );
@@ -181,7 +224,7 @@ class TrialRoomPage extends StatefulWidget {
   const TrialRoomPage({super.key});
 
   @override
-  _TrialRoomPageState createState() => _TrialRoomPageState();
+  State<TrialRoomPage> createState() => _TrialRoomPageState();
 }
 
 class _TrialRoomPageState extends State<TrialRoomPage> {
@@ -257,29 +300,30 @@ class _TrialRoomPageState extends State<TrialRoomPage> {
   @override
   Widget build(BuildContext context) {
     final filteredCases = cases[_selectedCategory] ?? [];
-    print('Filtered cases length: ${filteredCases.length}');
 
     if (filteredCases.isEmpty) {
       return Scaffold(
         appBar: AppBar(
-          title: const Text('Trial Room', style: TextStyle(color: Color(0xFFFFC107))),
-          backgroundColor: const Color(0xFF0F1C2E),
+          title: const Text('Trial Room', style: TextStyle(color: Color(0xFF174AC9))),
+          backgroundColor: Colors.white,
+          elevation: 0,
         ),
         body: const Center(
-          child: Text('No cases available', style: TextStyle(color: Color(0xFFF5F6F5))),
+          child: Text('No cases available', style: TextStyle(color: Colors.black87)),
         ),
       );
     }
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Trial Room', style: TextStyle(color: Color(0xFFFFC107))),
-        backgroundColor: const Color(0xFF0F1C2E),
+        title: const Text('Trial Room', style: TextStyle(color: Color(0xFF174AC9))),
+        backgroundColor: Colors.white,
+        elevation: 0,
       ),
       body: Column(
         children: [
           Container(
-            color: const Color(0xFF0F1C2E),
+            color: Colors.white,
             padding: const EdgeInsets.symmetric(vertical: 10.0),
             child: SingleChildScrollView(
               scrollDirection: Axis.horizontal,
@@ -298,7 +342,7 @@ class _TrialRoomPageState extends State<TrialRoomPage> {
             padding: EdgeInsets.all(16.0),
             child: Text(
               'Select a Case',
-              style: TextStyle(color: Color(0xFFF5F6F5), fontSize: 20, fontWeight: FontWeight.bold),
+              style: TextStyle(color: Color(0xFF174AC9), fontSize: 20, fontWeight: FontWeight.bold),
             ),
           ),
           Expanded(
@@ -308,26 +352,20 @@ class _TrialRoomPageState extends State<TrialRoomPage> {
                 final caseData = filteredCases[index];
                 return GestureDetector(
                   onTap: () {
-                    try {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => CaseDetailPage(
-                            caseData: caseData,
-                            userRating: 65,
-                          ),
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => CaseDetailPage(
+                          caseData: caseData,
+                          userRating: 65,
                         ),
-                      );
-                    } catch (e) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('Error navigating: $e')),
-                      );
-                    }
+                      ),
+                    );
                   },
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Card(
-                      color: const Color(0xFF4A6B6F),
+                      color: const Color(0xFFE6F3FF),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12.0),
                       ),
@@ -339,7 +377,7 @@ class _TrialRoomPageState extends State<TrialRoomPage> {
                             Text(
                               caseData['title']!,
                               style: const TextStyle(
-                                color: Color(0xFFF5F6F5),
+                                color: Colors.black87,
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -348,7 +386,7 @@ class _TrialRoomPageState extends State<TrialRoomPage> {
                             Text(
                               caseData['description']!.split('\n').first,
                               style: const TextStyle(
-                                color: Color(0xFFF5F6F5),
+                                color: Colors.black87,
                                 fontSize: 14,
                               ),
                             ),
@@ -356,7 +394,7 @@ class _TrialRoomPageState extends State<TrialRoomPage> {
                             Text(
                               'Min Rating: ${caseData['minRating']}',
                               style: const TextStyle(
-                                color: Color(0xFFF5F6F5),
+                                color: Colors.black87,
                                 fontSize: 12,
                               ),
                             ),
@@ -381,15 +419,14 @@ class _TrialRoomPageState extends State<TrialRoomPage> {
         onPressed: () {
           setState(() {
             _selectedCategory = label;
-            print('Selected category: $_selectedCategory');
           });
         },
         style: ElevatedButton.styleFrom(
-          backgroundColor: isSelected ? const Color(0xFF00A86B) : const Color(0xFF4A6B6F),
+          backgroundColor: isSelected ? const Color(0xFF174AC9) : const Color(0xFFACD4FC),
           shape: const StadiumBorder(),
           padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
         ),
-        child: Text(label, style: const TextStyle(color: Color(0xFFF5F6F5))),
+        child: Text(label, style: TextStyle(color: isSelected ? Colors.white : Colors.black87)),
       ),
     );
   }
@@ -402,7 +439,7 @@ class CaseDetailPage extends StatefulWidget {
   const CaseDetailPage({super.key, required this.caseData, required this.userRating});
 
   @override
-  _CaseDetailPageState createState() => _CaseDetailPageState();
+  State<CaseDetailPage> createState() => _CaseDetailPageState();
 }
 
 class _CaseDetailPageState extends State<CaseDetailPage> {
@@ -417,14 +454,15 @@ class _CaseDetailPageState extends State<CaseDetailPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.caseData['title']!, style: const TextStyle(color: Color(0xFFFFC107))),
-        backgroundColor: const Color(0xFF0F1C2E),
+        title: Text(widget.caseData['title']!, style: const TextStyle(color: Color(0xFF174AC9))),
+        backgroundColor: Colors.white,
+        elevation: 0,
         actions: [
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
               'Rating: ${widget.userRating}',
-              style: const TextStyle(color: Color(0xFFF5F6F5), fontSize: 16),
+              style: const TextStyle(color: Colors.black87, fontSize: 16),
             ),
           ),
         ],
@@ -452,7 +490,7 @@ class _CaseDetailPageState extends State<CaseDetailPage> {
               Text(
                 widget.caseData['title']!,
                 style: const TextStyle(
-                  color: Color(0xFFF5F6F5),
+                  color: Colors.black87,
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
                 ),
@@ -462,12 +500,12 @@ class _CaseDetailPageState extends State<CaseDetailPage> {
                 'Overview: ${widget.caseData['description']?.split('\n').first ?? 'No overview'}\n'
                 'Evidence: ${widget.caseData['description']?.split('\n')[1] ?? 'No evidence'}\n'
                 'Details: ${widget.caseData['description']?.split('\n').last ?? 'No details'}',
-                style: const TextStyle(color: Color(0xFFF5F6F5), fontSize: 16),
+                style: const TextStyle(color: Colors.black87, fontSize: 16),
               ),
               const SizedBox(height: 16.0),
               Text(
                 'Minimum Ratings:\n- Lawyer (Plaintiff/Defendant): $minLawyerRating\n- Judge: $minJudgeRating',
-                style: const TextStyle(color: Color(0xFFF5F6F5), fontSize: 16),
+                style: const TextStyle(color: Colors.black87, fontSize: 16),
               ),
               const SizedBox(height: 16.0),
               if (canEnterTrial)
@@ -483,15 +521,15 @@ class _CaseDetailPageState extends State<CaseDetailPage> {
                             ),
                           );
                         },
-                        style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF00A86B)),
-                        child: const Text('Enter Trial Room as Judge', style: TextStyle(color: Color(0xFFF5F6F5))),
+                        style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF174AC9)),
+                        child: const Text('Enter Trial Room as Judge', style: TextStyle(color: Colors.white)),
                       ),
                     if (widget.userRating >= minLawyerRating && widget.userRating < minJudgeRating)
                       Column(
                         children: [
                           DropdownButton<String>(
                             value: selectedRole,
-                            hint: const Text('Choose Role', style: TextStyle(color: Color(0xFFF5F6F5))),
+                            hint: const Text('Choose Role', style: TextStyle(color: Colors.black87)),
                             items: ['Plaintiff', 'Defendant']
                                 .map((role) => DropdownMenuItem(value: role, child: Text(role)))
                                 .toList(),
@@ -500,7 +538,7 @@ class _CaseDetailPageState extends State<CaseDetailPage> {
                                 selectedRole = value;
                               });
                             },
-                            dropdownColor: const Color(0xFF1E2A44),
+                            dropdownColor: Colors.white,
                           ),
                           const SizedBox(height: 10),
                           ElevatedButton(
@@ -514,8 +552,8 @@ class _CaseDetailPageState extends State<CaseDetailPage> {
                                     );
                                   }
                                 : null,
-                            style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF00A86B)),
-                            child: const Text('Enter Trial Room', style: TextStyle(color: Color(0xFFF5F6F5))),
+                            style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF174AC9)),
+                            child: const Text('Enter Trial Room', style: TextStyle(color: Colors.white)),
                           ),
                         ],
                       ),
@@ -530,8 +568,8 @@ class _CaseDetailPageState extends State<CaseDetailPage> {
                     ),
                   );
                 },
-                style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF4A6B6F)),
-                child: const Text('Spectate', style: TextStyle(color: Color(0xFFF5F6F5))),
+                style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFFACD4FC)),
+                child: const Text('Spectate', style: TextStyle(color: Colors.black87)),
               ),
             ],
           ),
@@ -565,8 +603,9 @@ class VirtualTrialRoom extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Virtual Trial Room', style: TextStyle(color: Color(0xFFFFC107))),
-        backgroundColor: const Color(0xFF0F1C2E),
+        title: const Text('Virtual Trial Room', style: TextStyle(color: Color(0xFF174AC9))),
+        backgroundColor: Colors.white,
+        elevation: 0,
       ),
       body: Center(
         child: Text(
@@ -575,7 +614,7 @@ class VirtualTrialRoom extends StatelessWidget {
               : mode == 'judge'
                   ? 'Participating as Judge'
                   : 'Participating as Lawyer',
-          style: const TextStyle(color: Color(0xFFF5F6F5), fontSize: 20),
+          style: const TextStyle(color: Colors.black87, fontSize: 20),
         ),
       ),
     );
@@ -586,7 +625,7 @@ class QuizPage extends StatefulWidget {
   const QuizPage({super.key});
 
   @override
-  _QuizPageState createState() => _QuizPageState();
+  State<QuizPage> createState() => _QuizPageState();
 }
 
 class _QuizPageState extends State<QuizPage> {
@@ -608,8 +647,6 @@ class _QuizPageState extends State<QuizPage> {
     },
   ];
 
-  String lastQuizRating = 'N/A';
-  int userPoints = 250;
   String? selectedQuizAnswer;
   int currentQuizIndex = 0;
   int correctAnswers = 0;
@@ -623,29 +660,30 @@ class _QuizPageState extends State<QuizPage> {
             animatedTexts: [
               TypewriterAnimatedText(
                 'Legal Quiz',
-                textStyle: const TextStyle(color: Color(0xFFFFC107), fontSize: 24),
+                textStyle: const TextStyle(color: Color(0xFF174AC9), fontSize: 24),
                 speed: const Duration(milliseconds: 100),
               ),
             ],
             totalRepeatCount: 1,
           ),
         ),
-        backgroundColor: const Color(0xFF0F1C2E),
+        backgroundColor: Colors.white,
+        elevation: 0,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
             Card(
-              color: const Color(0xFF4A6B6F),
+              color: const Color(0xFFACD4FC),
               child: ListTile(
                 title: DropdownButton<String>(
                   value: quizzes.length > 1 ? quizzes[0]['title'] : null,
-                  hint: const Text('Select Quiz', style: TextStyle(color: Color(0xFFF5F6F5))),
+                  hint: const Text('Select Quiz', style: TextStyle(color: Colors.black87)),
                   items: quizzes.map((quiz) {
                     return DropdownMenuItem<String>(
                       value: quiz['title'],
-                      child: Text(quiz['title']!, style: const TextStyle(color: Color(0xFFF5F6F5))),
+                      child: Text(quiz['title']!, style: const TextStyle(color: Colors.black87)),
                     );
                   }).toList(),
                   onChanged: (value) {
@@ -662,7 +700,7 @@ class _QuizPageState extends State<QuizPage> {
             if (currentQuizIndex < quizzes[0]['questions'].length)
               Expanded(
                 child: Card(
-                  color: const Color(0xFF1E2A44),
+                  color: Colors.white,
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: Column(
@@ -670,18 +708,18 @@ class _QuizPageState extends State<QuizPage> {
                       children: [
                         Text(
                           'Question ${currentQuizIndex + 1}/${quizzes[0]['questions'].length}',
-                          style: const TextStyle(color: Color(0xFFFFC107), fontSize: 18),
+                          style: const TextStyle(color: Color(0xFF174AC9), fontSize: 18),
                         ),
                         const SizedBox(height: 10),
                         Text(
                           quizzes[0]['questions'][currentQuizIndex]['question'],
-                          style: const TextStyle(color: Color(0xFFF5F6F5), fontSize: 16),
+                          style: const TextStyle(color: Colors.black87, fontSize: 16),
                           textAlign: TextAlign.center,
                         ),
                         const SizedBox(height: 20),
                         ...quizzes[0]['questions'][currentQuizIndex]['options'].map<Widget>((option) {
                           return RadioListTile<String>(
-                            title: Text(option, style: const TextStyle(color: Color(0xFFF5F6F5))),
+                            title: Text(option, style: const TextStyle(color: Colors.black87)),
                             value: option,
                             groupValue: selectedQuizAnswer,
                             onChanged: (value) {
@@ -689,7 +727,7 @@ class _QuizPageState extends State<QuizPage> {
                                 selectedQuizAnswer = value;
                               });
                             },
-                            activeColor: const Color(0xFF00A86B),
+                            activeColor: const Color(0xFF174AC9),
                           );
                         }).toList(),
                         const SizedBox(height: 20),
@@ -704,8 +742,8 @@ class _QuizPageState extends State<QuizPage> {
                                     selectedQuizAnswer = null;
                                   });
                                 },
-                                style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF4A6B6F)),
-                                child: const Text('Previous'),
+                                style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFFACD4FC)),
+                                child: const Text('Previous', style: TextStyle(color: Colors.black87)),
                               ),
                             ElevatedButton(
                               onPressed: selectedQuizAnswer == null
@@ -718,14 +756,14 @@ class _QuizPageState extends State<QuizPage> {
                                           ScaffoldMessenger.of(context).showSnackBar(
                                             const SnackBar(
                                               content: Text('Correct!'),
-                                              backgroundColor: Color(0xFF00A86B),
+                                              backgroundColor: Color(0xFF174AC9),
                                             ),
                                           );
                                         } else {
                                           ScaffoldMessenger.of(context).showSnackBar(
                                             const SnackBar(
                                               content: Text('Wrong!'),
-                                              backgroundColor: Color(0xFFD32F2F),
+                                              backgroundColor: Colors.red,
                                             ),
                                           );
                                         }
@@ -735,10 +773,10 @@ class _QuizPageState extends State<QuizPage> {
                                         }
                                       });
                                     },
-                              style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF4A6B6F)),
+                              style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF174AC9)),
                               child: currentQuizIndex == quizzes[0]['questions'].length - 1
-                                  ? const Text('Finish')
-                                  : const Text('Next'),
+                                  ? const Text('Finish', style: TextStyle(color: Colors.white))
+                                  : const Text('Next', style: TextStyle(color: Colors.white)),
                             ),
                           ],
                         ),
@@ -749,7 +787,7 @@ class _QuizPageState extends State<QuizPage> {
               ),
             if (currentQuizIndex == quizzes[0]['questions'].length)
               Card(
-                color: const Color(0xFF1E2A44),
+                color: Colors.white,
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Column(
@@ -757,12 +795,12 @@ class _QuizPageState extends State<QuizPage> {
                     children: [
                       const Text(
                         'Quiz Completed!',
-                        style: TextStyle(color: Color(0xFFFFC107), fontSize: 24, fontWeight: FontWeight.bold),
+                        style: TextStyle(color: Color(0xFF174AC9), fontSize: 24, fontWeight: FontWeight.bold),
                       ),
                       const SizedBox(height: 20),
                       Text(
                         'Score: $correctAnswers/${quizzes[0]['questions'].length}',
-                        style: const TextStyle(color: Color(0xFFF5F6F5), fontSize: 20),
+                        style: const TextStyle(color: Colors.black87, fontSize: 20),
                       ),
                       const SizedBox(height: 20),
                       ElevatedButton(
@@ -773,8 +811,8 @@ class _QuizPageState extends State<QuizPage> {
                             selectedQuizAnswer = null;
                           });
                         },
-                        style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF4A6B6F)),
-                        child: const Text('Restart Quiz'),
+                        style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF174AC9)),
+                        child: const Text('Restart Quiz', style: TextStyle(color: Colors.white)),
                       ),
                     ],
                   ),
@@ -815,8 +853,9 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Profile', style: TextStyle(color: Color(0xFFFFC107))),
-        backgroundColor: const Color(0xFF0F1C2E),
+        title: const Text('Profile', style: TextStyle(color: Color(0xFF174AC9))),
+        backgroundColor: Colors.white,
+        elevation: 0,
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -824,44 +863,82 @@ class _ProfilePageState extends State<ProfilePage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Card(
+                color: const Color(0xFFE6F3FF),
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Row(
+                    children: [
+                      const CircleAvatar(
+                        radius: 30,
+                        backgroundColor: Color(0xFF174AC9),
+                        child: Icon(Icons.person, size: 30, color: Colors.white),
+                      ),
+                      const SizedBox(width: 16),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            '@sreeshma',
+                            style: TextStyle(
+                              color: Colors.black.withOpacity(0.8),
+                              fontSize: 16,
+                            ),
+                          ),
+                          const SizedBox(height: 4),
+                          const Text(
+                            'Sreeshma P',
+                            style: TextStyle(
+                              color: Colors.black87,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(height: 20),
               const Text(
                 'Subscription Model',
-                style: TextStyle(color: Color(0xFFF5F6F5), fontSize: 20, fontWeight: FontWeight.bold),
+                style: TextStyle(color: Color(0xFF174AC9), fontSize: 20, fontWeight: FontWeight.bold),
               ),
               Card(
-                color: const Color(0xFF4A6B6F),
+                color: const Color(0xFFACD4FC),
                 child: ListTile(
-                  title: const Text('Basic Plan', style: TextStyle(color: Color(0xFFF5F6F5))),
-                  subtitle: const Text('Free with limited features.', style: TextStyle(color: Color(0xFFF5F6F5))),
+                  title: const Text('Basic Plan', style: TextStyle(color: Colors.black87)),
+                  subtitle: const Text('Free with limited features.', style: TextStyle(color: Colors.black87)),
                   trailing: ElevatedButton(
                     onPressed: () {},
-                    style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF00A86B)),
-                    child: const Text('Select', style: TextStyle(color: Color(0xFFF5F6F5))),
+                    style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF174AC9)),
+                    child: const Text('Select', style: TextStyle(color: Colors.white)),
                   ),
                 ),
               ),
               Card(
-                color: const Color(0xFF4A6B6F),
+                color: const Color(0xFFACD4FC),
                 child: ListTile(
-                  title: const Text('Premium Plan', style: TextStyle(color: Color(0xFFF5F6F5))),
-                  subtitle: const Text('₹499/month with full access.', style: TextStyle(color: Color(0xFFF5F6F5))),
+                  title: const Text('Premium Plan', style: TextStyle(color: Colors.black87)),
+                  subtitle: const Text('₹499/month with full access.', style: TextStyle(color: Colors.black87)),
                   trailing: ElevatedButton(
                     onPressed: () {},
-                    style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF00A86B)),
-                    child: const Text('Subscribe', style: TextStyle(color: Color(0xFFF5F6F5))),
+                    style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF174AC9)),
+                    child: const Text('Subscribe', style: TextStyle(color: Colors.white)),
                   ),
                 ),
               ),
               const SizedBox(height: 20),
               const Text(
                 'Rating Growth',
-                style: TextStyle(color: Color(0xFFF5F6F5), fontSize: 20, fontWeight: FontWeight.bold),
+                style: TextStyle(color: Color(0xFF174AC9), fontSize: 20, fontWeight: FontWeight.bold),
               ),
               Container(
                 height: 200,
                 padding: const EdgeInsets.all(8.0),
                 child: Card(
-                  color: const Color(0xFF1E2A44),
+                  color: Colors.white,
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: LineChart(
@@ -873,13 +950,13 @@ class _ProfilePageState extends State<ProfilePage> {
                           verticalInterval: 1,
                           getDrawingHorizontalLine: (value) {
                             return FlLine(
-                              color: Colors.white.withOpacity(0.2),
+                              color: Colors.grey.withOpacity(0.2),
                               strokeWidth: 1,
                             );
                           },
                           getDrawingVerticalLine: (value) {
                             return FlLine(
-                              color: Colors.white.withOpacity(0.2),
+                              color: Colors.grey.withOpacity(0.2),
                               strokeWidth: 1,
                             );
                           },
@@ -892,11 +969,11 @@ class _ProfilePageState extends State<ProfilePage> {
                               reservedSize: 22,
                               getTitlesWidget: (value, meta) {
                                 switch (value.toInt()) {
-                                  case 0: return const Text('Mar 2024', style: TextStyle(color: Colors.white, fontSize: 10));
-                                  case 3: return const Text('Jun 2024', style: TextStyle(color: Colors.white, fontSize: 10));
-                                  case 6: return const Text('Sep 2024', style: TextStyle(color: Colors.white, fontSize: 10));
-                                  case 9: return const Text('Dec 2024', style: TextStyle(color: Colors.white, fontSize: 10));
-                                  case 10: return const Text('Jan 2025', style: TextStyle(color: Colors.white, fontSize: 10));
+                                  case 0: return const Text('Mar 2024', style: TextStyle(color: Colors.black87, fontSize: 10));
+                                  case 3: return const Text('Jun 2024', style: TextStyle(color: Colors.black87, fontSize: 10));
+                                  case 6: return const Text('Sep 2024', style: TextStyle(color: Colors.black87, fontSize: 10));
+                                  case 9: return const Text('Dec 2024', style: TextStyle(color: Colors.black87, fontSize: 10));
+                                  case 10: return const Text('Jan 2025', style: TextStyle(color: Colors.black87, fontSize: 10));
                                   default: return const Text('');
                                 }
                               },
@@ -909,7 +986,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               interval: 500,
                               getTitlesWidget: (value, meta) {
                                 if (value % 500 == 0) {
-                                  return Text(value.toInt().toString(), style: const TextStyle(color: Colors.white, fontSize: 10));
+                                  return Text(value.toInt().toString(), style: const TextStyle(color: Colors.black87, fontSize: 10));
                                 }
                                 return const Text('');
                               },
@@ -918,7 +995,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         ),
                         borderData: FlBorderData(
                           show: true,
-                          border: Border.all(color: Colors.white.withOpacity(0.2)),
+                          border: Border.all(color: Colors.grey.withOpacity(0.2)),
                         ),
                         minX: 0,
                         maxX: 10,
@@ -928,7 +1005,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           LineChartBarData(
                             spots: _ratingSpots,
                             isCurved: false,
-                            color: Colors.purple,
+                            color: const Color(0xFF174AC9),
                             barWidth: 2,
                             dotData: FlDotData(show: true),
                             belowBarData: BarAreaData(show: false),
@@ -942,10 +1019,10 @@ class _ProfilePageState extends State<ProfilePage> {
               const SizedBox(height: 20),
               const Text(
                 'Scoreboard',
-                style: TextStyle(color: Color(0xFFF5F6F5), fontSize: 20, fontWeight: FontWeight.bold),
+                style: TextStyle(color: Color(0xFF174AC9), fontSize: 20, fontWeight: FontWeight.bold),
               ),
               Card(
-                color: _showFullScoreboard ? const Color(0xFF1E2A44) : const Color(0xFF4A6B6F),
+                color: _showFullScoreboard ? Colors.white : const Color(0xFFACD4FC),
                 child: InkWell(
                   onTap: () {
                     setState(() {
@@ -974,9 +1051,9 @@ class _ProfilePageState extends State<ProfilePage> {
 
   Widget _buildScoreEntry(String name, String score, int rank) {
     return ListTile(
-      leading: Text('$rank', style: const TextStyle(color: Color(0xFFF5F6F5))),
-      title: Text(name, style: const TextStyle(color: Color(0xFFF5F6F5))),
-      trailing: Text(score, style: const TextStyle(color: Color(0xFFF5F6F5))),
+      leading: Text('$rank', style: const TextStyle(color: Colors.black87)),
+      title: Text(name, style: const TextStyle(color: Colors.black87)),
+      trailing: Text(score, style: const TextStyle(color: Colors.black87)),
     );
   }
 }
