@@ -21,7 +21,7 @@ class _MainPageState extends State<MainPage> {
     const DocumentsPage(),
     const TrialRoomPage(),
     const HomePage(),
-    const CommunityPage(),
+    CommunityPage(),
     const ProfilePage(),
   ];
 

@@ -5,7 +5,7 @@ import 'package:vivi25/pages/community/models/posts.dart';
 import '../models/law_user_model.dart';
 
 class ApiService {
-  final String _baseUrl = "http://192.168.238.159:8081"; // Update if needed
+  final String _baseUrl = "http://192.168.126.159:8081"; // Update if needed
 
   Future<Map<String, dynamic>> register(LawUser user) async {
     try {
