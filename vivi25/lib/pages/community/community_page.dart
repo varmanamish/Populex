@@ -1,149 +1,164 @@
-import 'package:vivi25/pages/community/components/comments_bottom_sheet.dart';
-import 'package:vivi25/pages/community/components/post_card.dart';
-import 'package:vivi25/pages/community/create_post_screen.dart';
-import 'package:vivi25/pages/community/models/comments.dart';
-import 'package:vivi25/pages/community/models/posts.dart';
-import 'package:vivi25/api_service.dart';
 import 'package:flutter/material.dart';
-import 'package:timeago/timeago.dart' as timeago;
 
-class CommunityPage extends StatefulWidget {
-  @override
-  _CommunityPageState createState() => _CommunityPageState();
+class Post {
+  final String id;
+  final String author;
+  final String avatarUrl;
+  final String content;
+  final DateTime date;
+  final int likes;
+  final int comments;
+  final String? imageUrl;
+
+  Post({
+    required this.id,
+    required this.author,
+    required this.avatarUrl,
+    required this.content,
+    required this.date,
+    this.likes = 0,
+    this.comments = 0,
+    this.imageUrl,
+  });
 }
 
-class _CommunityPageState extends State<CommunityPage> {
-  List<Post> posts = [];
-  bool isLoading = true;
-  String errorMessage = '';
-
-  @override
-  void initState() {
-    super.initState();
-    _fetchPosts();
-  }
-
-  Future<void> _fetchPosts() async {
-    setState(() {
-      isLoading = true;
-      errorMessage = '';
-    });
-
-    try {
-      final fetchedPosts = await ApiService.fetchPosts();
-      setState(() {
-        posts = fetchedPosts;
-        isLoading = false;
-      });
-    } catch (e) {
-      setState(() {
-        errorMessage = 'Failed to load posts. Please try again.';
-        isLoading = false;
-      });
-      print('Error fetching posts: $e');
-    }
-  }
-
-  Future<void> _refreshPosts() async {
-    await _fetchPosts();
-  }
-
-  void _showComments(BuildContext context, Post post) {
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent,
-      builder: (context) {
-        return CommentsBottomSheet(post: post);
-      },
-    );
-  }
+class CommunityPage extends StatelessWidget {
+  final List<Post> posts = [
+    Post(
+      id: '1',
+      author: 'LegalEagle',
+      avatarUrl: 'https://i.pravatar.cc/150?img=1',
+      content:
+          'Just discovered this amazing feature in our app that automatically summarizes complex legal documents! Has anyone else tried it?',
+      date: DateTime.now().subtract(Duration(hours: 2)),
+      likes: 24,
+      comments: 8,
+      imageUrl: 'https://source.unsplash.com/random/600x300/?law',
+    ),
+    Post(
+      id: '2',
+      author: 'ParalegalPro',
+      avatarUrl: 'https://i.pravatar.cc/150?img=2',
+      content:
+          'Sharing a tip: When uploading documents, make sure they\'re in PDF format for best results. The OCR works perfectly with clear scans!',
+      date: DateTime.now().subtract(Duration(days: 1)),
+      likes: 42,
+      comments: 15,
+    ),
+    Post(
+      id: '3',
+      author: 'LawStudent101',
+      avatarUrl: 'https://i.pravatar.cc/150?img=3',
+      content:
+          'This app saved me hours of contract review time today. The AI analysis pointed out several clauses I would have missed!',
+      date: DateTime.now().subtract(Duration(days: 3)),
+      likes: 56,
+      comments: 23,
+      imageUrl: 'https://source.unsplash.com/random/600x300/?contract',
+    ),
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Community"),
-        centerTitle: true,
-        elevation: 0,
+        title: Text('Legal Community'),
         actions: [
           IconButton(
-            icon: Icon(Icons.refresh),
-            onPressed: _refreshPosts,
+            icon: Icon(Icons.add),
+            onPressed: () {
+              // Add new post functionality
+            },
           ),
         ],
       ),
-      body: _buildBody(),
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: () => _navigateToCreatePost(context),
-      //   child: Icon(Icons.add),
-      //   backgroundColor: Colors.green, // Farm-themed color
-      // ),
+      body: ListView.builder(
+        padding: EdgeInsets.all(8),
+        itemCount: posts.length,
+        itemBuilder: (context, index) {
+          return _buildPostCard(posts[index]);
+        },
+      ),
     );
   }
 
-  // void _navigateToCreatePost(BuildContext context) {
-  //   Navigator.of(context).push(
-  //     PageRouteBuilder(
-  //       pageBuilder: (context, animation, secondaryAnimation) =>
-  //           CreatePostScreen(
-  //         onPostCreated: _refreshPosts, // Refresh posts after creation
-  //       ),
-  //       transitionsBuilder: (context, animation, secondaryAnimation, child) {
-  //         const begin = Offset(0.0, 1.0);
-  //         const end = Offset.zero;
-  //         const curve = Curves.easeInOut;
-
-  //         var tween =
-  //             Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-  //         var offsetAnimation = animation.drive(tween);
-
-  //         return SlideTransition(
-  //           position: offsetAnimation,
-  //           child: child,
-  //         );
-  //       },
-  //       transitionDuration: Duration(milliseconds: 300),
-  //     ),
-  //   );
-  // }
-
-  Widget _buildBody() {
-    if (isLoading) {
-      return Center(child: CircularProgressIndicator());
-    }
-
-    if (errorMessage.isNotEmpty) {
-      return Center(
+  Widget _buildPostCard(Post post) {
+    return Card(
+      margin: EdgeInsets.only(bottom: 16),
+      elevation: 2,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Padding(
+        padding: EdgeInsets.all(16),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(errorMessage),
+            Row(
+              children: [
+                CircleAvatar(
+                  backgroundImage: NetworkImage(post.avatarUrl),
+                  radius: 20,
+                ),
+                SizedBox(width: 12),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      post.author,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                      ),
+                    ),
+                    Text(
+                      '${post.date.day}/${post.date.month}/${post.date.year}',
+                      style: TextStyle(
+                        color: Colors.grey,
+                        fontSize: 12,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
             SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: _refreshPosts,
-              child: Text('Retry'),
+            Text(post.content),
+            if (post.imageUrl != null) ...[
+              SizedBox(height: 16),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: Image.network(
+                  post.imageUrl!,
+                  height: 200,
+                  width: double.infinity,
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ],
+            SizedBox(height: 16),
+            Row(
+              children: [
+                IconButton(
+                  icon: Icon(Icons.favorite_border),
+                  onPressed: () {},
+                ),
+                Text(post.likes.toString()),
+                SizedBox(width: 16),
+                IconButton(
+                  icon: Icon(Icons.comment),
+                  onPressed: () {},
+                ),
+                Text(post.comments.toString()),
+                Spacer(),
+                IconButton(
+                  icon: Icon(Icons.share),
+                  onPressed: () {},
+                ),
+              ],
             ),
           ],
         ),
-      );
-    }
-
-    if (posts.isEmpty) {
-      return Center(child: Text('No posts available'));
-    }
-
-    return RefreshIndicator(
-      onRefresh: _refreshPosts,
-      child: ListView.builder(
-        padding: EdgeInsets.symmetric(vertical: 8),
-        itemCount: posts.length,
-        itemBuilder: (context, index) {
-          return PostCard(
-            post: posts[index],
-            onCommentPressed: () => _showComments(context, posts[index]),
-          );
-        },
       ),
     );
   }

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>LegalDoc Assistant</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f4f4f4;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+
+    #chat-container {
+      flex-grow: 1;
+      padding: 10px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .message {
+      max-width: 75%;
+      margin: 5px 10px;
+      padding: 10px;
+      border-radius: 12px;
+    }
+
+    .user {
+      align-self: flex-end;
+      background-color: #673ab7;
+      color: white;
+    }
+
+    .bot {
+      align-self: flex-start;
+      background-color: #e0e0e0;
+      color: black;
+    }
+
+    #input-container {
+      display: flex;
+      padding: 10px;
+      background-color: white;
+      border-top: 1px solid #ccc;
+    }
+
+    input[type="text"] {
+      flex-grow: 1;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      margin: 0 5px;
+    }
+
+    button {
+      padding: 10px 14px;
+      margin-left: 4px;
+      border: none;
+      background-color: #673ab7;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #512da8;
+    }
+
+    #file-name {
+      margin: 6px;
+      font-size: 0.9em;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="chat-container"></div>
+
+  <div id="file-name"></div>
+
+  <div id="input-container">
+    <input type="file" id="file-input" accept=".pdf,.docx,.txt" style="display: none;">
+    <button onclick="document.getElementById('file-input').click()">📁</button>
+    <button onclick="summarizeFile()">Summarize</button>
+    <input type="text" id="question-input" placeholder="Ask a question..." />
+    <button onclick="askQuestion()">➤</button>
+  </div>
+
+  <script>
+    let currentText = "";  // Holds extracted doc text
+
+    document.getElementById('file-input').addEventListener('change', async (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      const formData = new FormData();
+      formData.append('file', file);
+
+      const response = await fetch('/upload', {
+        method: 'POST',
+        body: formData
+      });
+
+      const data = await response.json();
+      currentText = data.text;  // Store for future Q&A
+      document.getElementById('file-name').innerText = "Current File: " + file.name;
+
+      addMessage("File uploaded successfully.", "bot");
+    });
+
+    function addMessage(text, role) {
+      const chat = document.getElementById('chat-container');
+      const msg = document.createElement('div');
+      msg.className = 'message ' + role;
+      msg.innerText = text;
+      chat.appendChild(msg);
+      chat.scrollTop = chat.scrollHeight;
+    }
+
+    async function summarizeFile() {
+      if (!currentText) {
+        addMessage("Please upload a document first.", "bot");
+        return;
+      }
+
+      addMessage("Summarize the document.", "user");
+
+      const response = await fetch('/chat', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          text: currentText,
+          question: "Summarize this legal document in simple terms"
+        })
+      });
+
+      const data = await response.json();
+      addMessage(data.response, "bot");
+    }
+
+    async function askQuestion() {
+      const input = document.getElementById('question-input');
+      const question = input.value.trim();
+      if (!question) return;
+
+      addMessage(question, "user");
+      input.value = "";
+
+      if (!currentText) {
+        addMessage("Please upload a document first.", "bot");
+        return;
+      }
+
+      const response = await fetch('/chat', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ text: currentText, question })
+      });
+
+      const data = await response.json();
+      addMessage(data.response, "bot");
+    }
+  </script>
+</body>
+</html>

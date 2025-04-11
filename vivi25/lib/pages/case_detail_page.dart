@@ -102,13 +102,13 @@ class _CaseDetailPageState extends State<CaseDetailPage> {
                   DropdownButton<String>(
                     value: selectedRole,
                     hint: const Text('Choose Role',
-                        style: TextStyle(color: Color(0xFFF5F6F5))),
-                    items: ['Plaintiff', 'Defendant']
+                        style: TextStyle(color: Colors.black)),
+                    items: ['Plaintiff', 'Defendant', 'Judge']
                         .map((role) =>
                             DropdownMenuItem(value: role, child: Text(role)))
                         .toList(),
                     onChanged: (value) => setState(() => selectedRole = value),
-                    dropdownColor: const Color(0xFF1E2A44),
+                    dropdownColor: Colors.white,
                   ),
                   const SizedBox(height: 10),
                   ElevatedButton(

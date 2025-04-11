@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:async'; // Import for TimeoutException
 import 'package:http/http.dart' as http;
-import 'package:vivi25/pages/community/models/posts.dart';
 import '../models/law_user_model.dart';
 
 class ApiService {
@@ -97,22 +96,22 @@ class ApiService {
     }
   }
 
-  static Future<List<Post>> fetchPosts() async {
-    final response = await http.get(
-      Uri.parse('http://192.168.238.159:8081/api/posts'),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    );
+  // static Future<List<Post>> fetchPosts() async {
+  //   final response = await http.get(
+  //     Uri.parse('http://192.168.238.159:8081/api/posts'),
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //   );
 
-    print('Fetch Products Response: ${response.statusCode} - ${response.body}');
+  //   print('Fetch Products Response: ${response.statusCode} - ${response.body}');
 
-    if (response.statusCode == 200) {
-      List<dynamic> body = json.decode(response.body);
-      print(body);
-      return body.map((json) => Post.fromJson(json)).toList();
-    } else {
-      throw Exception('Failed to load posts');
-    }
-  }
+  //   if (response.statusCode == 200) {
+  //     List<dynamic> body = json.decode(response.body);
+  //     print(body);
+  //     return ; //body.map((json) => Post.fromJson(json)).toList();
+  //   } else {
+  //     throw Exception('Failed to load posts');
+  //   }
+  // }
 }

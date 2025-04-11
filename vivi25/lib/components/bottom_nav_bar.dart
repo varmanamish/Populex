@@ -21,8 +21,8 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
     return BottomNavigationBar(
       type: BottomNavigationBarType.fixed,
       currentIndex: widget.currentIndex,
-      backgroundColor: const Color(0xFF0F1C2E),
-      selectedItemColor: const Color(0xFF00A86B),
+      backgroundColor: Colors.white,
+      selectedItemColor: Colors.black,
       unselectedItemColor: const Color(0xFF7F8C9A),
       onTap: widget.onTap,
       selectedIconTheme: const IconThemeData(
@@ -71,14 +71,14 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             color: widget.currentIndex == index
-                ? const Color(0xFF00A86B).withOpacity(0.2)
+                ? const Color(0xFF2158E0)
                 : Colors.transparent,
           ),
           child: Icon(
             icons[index],
             size: widget.currentIndex == index ? 30 : 24,
             color: widget.currentIndex == index
-                ? const Color(0xFF00A86B)
+                ? const Color(0xFFD5EAFF)
                 : const Color(0xFF7F8C9A),
           ),
         ),

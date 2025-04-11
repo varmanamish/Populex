@@ -3,6 +3,7 @@ import 'package:vivi25/components/bottom_nav_bar.dart';
 import 'package:vivi25/pages/community/community_page.dart';
 import 'package:vivi25/pages/documents_page.dart';
 import 'package:vivi25/pages/home_page.dart';
+import 'package:vivi25/pages/legal_doc_assist_screen.dart';
 import 'trial_room_page.dart';
 import 'profile_page.dart';
 
@@ -18,7 +19,7 @@ class _MainPageState extends State<MainPage> {
 
   // Define all your pages here
   final List<Widget> _pages = [
-    const DocumentsPage(),
+    LegalDocAssistantScreen(),
     const TrialRoomPage(),
     const HomePage(),
     CommunityPage(),
