@@ -11,8 +11,8 @@ It provides law students with **hands-on trial experience** while empowering the
 
 ## Problem Statement
 
-- 📚 **Law Students**: Lack of competitive **practical exposure** during studies.  
-- 👥 **General Public**: Low **civic awareness** and difficulty in accessing legal knowledge.  
+- **Law Students**: Lack of competitive **practical exposure** during studies.  
+- **General Public**: Low **civic awareness** and difficulty in accessing legal knowledge.  
 
 ---
 
@@ -25,7 +25,7 @@ Populex solves these challenges by offering:
 
 ---
 
-## 🛠 Features
+## Features
 
 ### Virtual Court Room
 - Simulated trial room for law students and citizens.  
