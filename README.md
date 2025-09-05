@@ -37,7 +37,7 @@ Populex solves these challenges by offering:
 - Bridges the gap between **classroom theory** and **courtroom practice**.  
 
 ![Judge 3D](assets/judge_male3D.jpg){width=100px}
-![Lawyer 3D](assets/judge_female3D.jpg){width=300px}
+<img src="assets/judge_female3D.jpg" alt="Lawyer 3D" width="300"/>
 
 
 ### 📑 Document Summarizer
