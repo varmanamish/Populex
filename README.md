@@ -36,7 +36,7 @@ Populex solves these challenges by offering:
   - Persuasiveness  
 - Bridges the gap between **classroom theory** and **courtroom practice**.  
 
-![Judge 3D](assets/judge_male3D.jpg){width=300px}
+![Judge 3D](assets/judge_male3D.jpg){width=100px}
 ![Lawyer 3D](assets/judge_female3D.jpg){width=300px}
 
 
