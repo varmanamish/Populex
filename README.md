@@ -1,4 +1,4 @@
-# ⚖️ Populex – Empowering People Through Law
+# Populex – Empowering People Through Law
 
 > *“If law is meant to serve the people, why do both students and citizens struggle to engage with it meaningfully?”*
 
@@ -9,14 +9,14 @@ It provides law students with **hands-on trial experience** while empowering the
 
 ---
 
-## 🚀 Problem Statement
+## Problem Statement
 
 - 📚 **Law Students**: Lack of competitive **practical exposure** during studies.  
 - 👥 **General Public**: Low **civic awareness** and difficulty in accessing legal knowledge.  
 
 ---
 
-## 🌟 About Populex
+## About Populex
 Populex solves these challenges by offering:
 - **Interactive trial simulations**  
 - **AI-powered tools** for summarization and evaluation  
@@ -27,7 +27,7 @@ Populex solves these challenges by offering:
 
 ## 🛠 Features
 
-### ⚖️ Virtual Court Room
+### Virtual Court Room
 - Simulated trial room for law students and citizens.  
 - Argue real or fictional cases with courtroom procedures.  
 - Real-time **rating system** based on:
@@ -54,7 +54,7 @@ Populex solves these challenges by offering:
 
 ---
 
-## 🖥️ Tech Stack
+## Tech Stack
 
 ### 🔹 App Development
 - **Frontend**: Flutter  
@@ -73,7 +73,7 @@ Populex solves these challenges by offering:
 
 ---
 
-## 🎯 Impact
+## Impact
 
 - Provides **experiential learning** for students.  
 - Promotes **legal confidence** and **civic responsibility**.  
@@ -89,7 +89,7 @@ Populex solves these challenges by offering:
 
 ---
 
-## 📌 Conclusion
+## Conclusion
 
 Populex goes beyond traditional legal education by transforming how law is **learned, practiced, and understood**.  
 It builds a foundation for:
